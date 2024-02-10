@@ -1,23 +1,23 @@
-/*Bubble sort----compare and swap
-time complexity=0(n^2) */
-
+/*Bubble sort----compare and swap in 
+modified bubble sort we introduce a flag 
+best time complexity=0(n) */
 #include<iostream>
 using namespace std;
-class Bubble{
+class MBubble{
 private:
-int size;
+int size,flag;
 int *ptr;
 public:
-Bubble();
-~Bubble();
-void bubbleSort();
+MBubble();
+~MBubble();
+int bubbleSort();
 void display();
 };
-Bubble::~Bubble()
+MBubble::~MBubble()
 {
     delete []ptr;
 }
-Bubble::Bubble()
+MBubble::MBubble()
 { 
     int n;
     cout<<"enter the size of array."<<endl;
@@ -30,7 +30,7 @@ Bubble::Bubble()
     cin>>ptr[i];
 }
 }
-void Bubble::display()
+void MBubble::display()
 {
     for(int i=0;i<size;i++)
     {
@@ -38,24 +38,30 @@ void Bubble::display()
     }
     cout<<endl;
 }
-void Bubble::bubbleSort()
-{  int c;
+int MBubble::bubbleSort()
+{  
     for(int i=1;i<=size-1;i++)
-    {
+    { 
+        flag=0;                       //outer loop flag =0
         for(int j=0;j<=size-1-i;j++)
         {
             if(ptr[j]>ptr[j+1])
             {
+                int c;
                 c=ptr[j+1];
                 ptr[j+1]=ptr[j];
                 ptr[j]=c;
+                flag=1;  //flag 1 if swap
             }
-        }
+            }
+        if(flag==0)  //to check weather swap is done atleast once or array is already sorted
+          return 0;
     }
+    return 0;
 }
 int main()
 {
-    Bubble obj;
+    MBubble obj;
     obj.display();
     obj.bubbleSort();
     obj.display();
